@@ -16,7 +16,7 @@ const connection = () => {
     const connection = knex({
         client: 'mysql2',
         connection : {
-            host : DB_HOST,
+            host : 'localhost' ?? DB_HOST,
             port : DB_PORT,
             user : DB_USER,
             password : DB_PASSWORD,

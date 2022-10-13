@@ -1,8 +1,8 @@
-import { faker } from '@faker-js/faker';
-import db from '../db.js';
+import { personalFactory } from "../factorys/personal.factory.js";
+import db from "../db.js";
 
-export const personalSeeder = async () => {
-    let TOTAL = 100;
-    
-    console.log('\t - Personal inseridos!')
+export const personalSeeder = async (usersId = []) => {
+    const personals = personalFactory({usersId})
+    await db('Personal').insert(personals);
+    console.log('\t - Personais inseridos!')
 }

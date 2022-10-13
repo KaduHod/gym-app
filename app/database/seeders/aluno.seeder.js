@@ -1,9 +1,8 @@
-import { faker } from '@faker-js/faker';
+import {alunosFactory} from '../factorys/aluno.factory.js';
 import db from '../db.js';
 
-export const alunoSeeder = async () => {
-    let TOTAL = 100;
-    
-    
-    console.log('\t - Exercícios inseridos!')
+export const alunoSeeder = async (usersId = []) => {
+    const alunos = alunosFactory({usersId})
+    await db('Aluno').insert(alunos);
+    console.log('\t - Alunos inseridos!')
 }
