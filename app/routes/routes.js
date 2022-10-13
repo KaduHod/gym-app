@@ -5,7 +5,8 @@ const Routes = express.Router();
 //console.log(HomeController)
 
 Routes.use(auth);
-Routes.get('/', HomeController.index.bind(this));
-Routes.get('/users', HomeController.users.bind(this));
+Routes.get('/', HomeController.index);
+Routes.get('/users', HomeController.users);
+Routes.get('/teste', HomeController.teste);
 
 export default Routes;

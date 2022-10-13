@@ -1,6 +1,6 @@
 FROM node
-WORKDIR /usr/src/GymApp 
-COPY package.json .
+WORKDIR /usr/gymApp
+COPY package*.json .
 RUN npm install 
 COPY . .
 EXPOSE 5555
