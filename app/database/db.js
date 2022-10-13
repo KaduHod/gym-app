@@ -21,18 +21,7 @@ const connection = () => {
             database : DB_DATABASE
         }
     }
-    console.log(params)
-    
-    const connection = knex({
-        client: 'mysql2',
-        connection : {
-            host : DB_HOST,
-            port : DB_PORT,
-            user : DB_USER,
-            password : DB_PASSWORD,
-            database : DB_DATABASE
-        }
-    });
+    console.log('\t - Conectando ao banco... ')
 
     global.connection = connection;
     return connection;

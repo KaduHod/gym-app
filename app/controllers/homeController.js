@@ -5,7 +5,7 @@ class HomeController {
     }
 
     index = (req, res) => {
-        console.log('aquie 222233322')
+        console.log('Ola')
         res.send({'message' : 'Hello world 100% ATUALIZADO, É RUIM DE ATURAR'});
     }
 

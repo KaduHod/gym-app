@@ -9,6 +9,6 @@ export const requestAlert = (req, res, next) => {
 }
 
 export const auth = (req, res, next) => {
-    console.log('\t Authentication success!!');
+    console.log('\t Authentication success 3!!');
     next();
 }

@@ -1,5 +1,5 @@
 FROM node
-WORKDIR /usr/gymApp
+WORKDIR /var/gymApp
 COPY package*.json .
 RUN npm install 
 COPY . .

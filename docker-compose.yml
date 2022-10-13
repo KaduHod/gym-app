@@ -5,10 +5,9 @@ services:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     container_name: gymapp-db-c
+    working_dir: /var/gymApp
     environment:
       MYSQL_ROOT_PASSWORD: 123456
-    volumes:
-      - ./app/database:/usr/gymApp/app/database
     restart: always
     ports:
      - "3306:3306"
@@ -17,12 +16,12 @@ services:
       "." 
     container_name: gymapp-node-c
     restart: always
-    working_dir: /usr/gymApp
+    working_dir: /var/gymApp
     command: npm start
     ports:
-     - "5555:5555"
+      - "5555:5555"
     volumes:
-     - .:/usr/gymApp
+      - /C/Users/carlos.ribas/Documents/projetos/gym-app:/var/gymApp/
     depends_on:
       - db
 
