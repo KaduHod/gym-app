@@ -1,0 +1,24 @@
+{
+  "name": "gym-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app/server.js",
+    "seed": "node app/database/seeders/database.seeder.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "knex": "^2.3.0",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "nodemon": "^2.0.20"
+  }
+}
