@@ -2,12 +2,15 @@ import db from '../database/db.js';
 class HomeController {
     constructor(){
         this.db = db;
+        this.teste = 'teste';
     }
-    index(req, res) {
+
+    index = (req, res) => {
         res.send({'message' : 'Hello world'});
     }
-    async users(req, res) {
-        const users = await db('users');
+
+    users = async (req, res) => {
+        const users = await this.db('Users');
         res.send({users});
     }
 }

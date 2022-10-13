@@ -1,3 +1,5 @@
+create database IF NOT EXISTS GymApp;
+
 use GymApp;
 
 create table Users (
