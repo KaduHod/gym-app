@@ -3,11 +3,11 @@ class HomeController {
     constructor(){
         this.db = db;
     }
-    index(req, res) {
+    index = (req, res) => {
         res.send({'message' : 'Hello world'});
     }
-    async users(req, res) {
-        const users = await db('users');
+    users = async (req, res) => {
+        const users = await this.db('users');
         res.send({users});
     }
 }

@@ -1,17 +1,8 @@
-import { faker } from '@faker-js/faker';
+import { userFactory } from '../factorys/user.factory.js';
 import db from '../db.js';
 
 export const userSeeder = async () => {
-    let TOTAL = 100;
-    let users = []
-    while(TOTAL > 0){
-        users.push({
-            nickname : faker.name.firstName(),
-            email : faker.internet.email(),
-            password : faker.internet.password()
-        });
-        TOTAL--;
-    }
-    await db('users').insert(users);
-    console.log('\t - Usúarios inseridos!')
+    let TOTAL = 200;
+    const users = userFactory({});
+    await db('Users').insert(users);
 }

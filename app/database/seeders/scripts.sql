@@ -3,7 +3,7 @@ use GymApp;
 create table Users (
 	id int NOT NULL auto_increment,
     nickname varchar(30),
-    email varchar(30),
+    email varchar(45),
     password varchar(255),
     createdAt date,
     updatedAt date,
