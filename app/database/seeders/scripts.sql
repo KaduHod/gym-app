@@ -1,3 +1,4 @@
+create database GymApp;
 use GymApp;
 
 create table Users (
