@@ -5,5 +5,5 @@ export const userSeeder = async () => {
     let TOTAL = 300;
     const users = userFactory({qtd:TOTAL});
     await db('Users').insert(users);
-    console.log('\t - Users inseridos!')
+    console.log('\t\t - Users inseridos!')
 }

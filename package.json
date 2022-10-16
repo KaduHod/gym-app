@@ -7,8 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app/server.js",
-    "seed": "node app/database/seeders/database.seeder.js",
-    "killTables": "node app/database/seeders/database.unseed.js"
+    "migrate:refresh" : "node app/database/seeders/refresh.seeder.js",
+    "migrate:test" : "node app/database/seeders/test.seeder.js"
   },
   "author": "",
   "license": "ISC",
