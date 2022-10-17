@@ -60,6 +60,19 @@ export const createTables = async () => {
     });
     console.log('\t\t - Treino!')
 
+    await db.schema.createTable('treino_aluno_personal', (table) => {
+        table.increments('id');
+        table.primary(['id'])
+        table.integer('personal_id').unsigned();
+        table.foreign('personal_id').references('Personal.id');
+        table.integer('aluno_id').unsigned();
+        table.foreign('aluno_id').references('Alunos.id');
+        table.integer('treino_id').unsigned();
+        table.foreign('treino_id').references('Treino.id');
+        table.timestamps();
+    });
+    console.log('\t\t - treino_aluno_personal!')
+
     await db.schema.createTable('periodizacao_treino', (table) => {
         table.increments('id');
         table.primary(['id'])
@@ -102,25 +115,27 @@ export const createTables = async () => {
         table.primary(['id'])
         table.string('name', 45);
         table.string('image', 100);
+        table.integer('antagonist_id').unsigned();
+        table.foreign('antagonist_id').references('Muscle.id');
         table.timestamps();
     });
     console.log('\t\t - Muscle!');
 
-    await db.schema.createTable('exercicio_agonists', (table) => {
+    await db.schema.createTable('exercicio_agonists_antagonists', (table) => {
         table.increments('id');
         table.primary(['id'])
-        table.string('name', 45);
-        table.string('image', 100);
         table.integer('exercicio_id').unsigned();
-        table.integer('muscle_id').unsigned();
         table.foreign('exercicio_id').references('Exercicio.id');
-        table.foreign('muscle_id').references('Muscle.id');
-        table.integer('activation_rate');
+        table.integer('agonist_id').unsigned().nullable();
+        table.foreign('agonist_id').references('Muscle.id');
+        table.integer('agonist_activation_rate');
+        table.foreign('antagonist_id').references('Muscle.id');
+        table.integer('antagonist_id').unsigned().nullable();        
         table.timestamps();
     });
     console.log('\t\t - exercicio_agonists!'); 
 
-    await db.schema.createTable('exercicio_antagonists', (table) => {
+    /*await db.schema.createTable('exercicio_antagonists', (table) => {
         table.increments('id');
         table.primary(['id'])
         table.string('name', 45);
@@ -130,8 +145,9 @@ export const createTables = async () => {
         table.foreign('exercicio_id').references('Exercicio.id');
         table.foreign('muscle_id').references('Muscle.id');
         table.timestamps();
-    });
-    console.log('\t\t - exercicio_antagonists!');
+    });*/
+    
+    console.log('\t\t - muscle_antagonist!');
 
     await db.schema.createTable('exercicio_synergists', (table) => {
         table.increments('id');

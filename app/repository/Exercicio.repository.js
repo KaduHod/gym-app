@@ -8,35 +8,22 @@ export class ExercicioRepository extends Repository {
         this.table = 'exercicio';
     }
 
-    all = async () => {
+    agonistsAntagonists = async ({exercicioId, type}) => {
+        if(type == 'agonists'){
+            return await this.db
+                        .select('muscle.name', 'muscle.image', 'exercicio_agonists_antagonists.agonist_activation_rate')
+                        .from('exercicio_agonists_antagonists')
+                        .where('exercicio_agonists_antagonists.exercicio_id', exercicioId)
+                        .innerJoin('muscle','muscle.id','exercicio_agonists_antagonists.agonist_id');
+        }
         return await this.db
-                        .select('')
-                        .from(this.table);
-    }
-
-    one = async ({exercicioId}) => {
-        return await this.db
-                        .select()
-                        .from(this.table)
-                        .where('Exercicio.id', exercicioId);
-    }
-
-    agonists = async ({exercicioId}) => {
-        return await this.db
-                        .select('muscle.name', 'muscle.image', 'exercicio_agonists.activation_rate')
-                        .from('exercicio_agonists')
-                        .where('exercicio_agonists.exercicio_id', exercicioId)
-                        .innerJoin('muscle','muscle.id','exercicio_agonists.muscle_id');
+                        .select('muscle.name', 'muscle.image', 'exercicio_agonists_antagonists.agonist_activation_rate')
+                        .from('exercicio_agonists_antagonists')
+                        .where('exercicio_agonists_antagonists.exercicio_id', exercicioId)
+                        .innerJoin('muscle','muscle.id','exercicio_agonists_antagonists.antagonist_id');
                         
     }
-    antagonists = async ({exercicioId}) => {
-        return await this.db
-                        .select('muscle.name', 'muscle.image')
-                        .from('exercicio_antagonists')
-                        .where('exercicio_antagonists.exercicio_id', exercicioId)
-                        .innerJoin('muscle','muscle.id','exercicio_antagonists.muscle_id');
-                        
-    }
+    
     synergists = async ({exercicioId}) => {
         return await this.db
                         .select('muscle.name', 'muscle.image', 'exercicio_synergists.activation_rate')
@@ -47,8 +34,8 @@ export class ExercicioRepository extends Repository {
     }
 
     muscles = async ({exercicioId}) => {
-        const agonists = await this.agonists({exercicioId});
-        const antagonists = await this.antagonists({exercicioId});
+        const agonists = await this.agonistsAntagonists({exercicioId, type:'agonists'});
+        const antagonists = await this.agonistsAntagonists({exercicioId, type:'antagonists'});
         const synergists = await this.synergists({exercicioId});
         return {agonists, antagonists, synergists};                         
     } 

@@ -6,27 +6,17 @@ import { treinoSeeder } from './treino.seeder.js';
 import { alunoSeeder } from './aluno.seeder.js';
 import { personalSeeder } from './personal.seeder.js';
 import { randomNumber } from "../../helpers/numbers.helper.js";
+import * as arrays from '../../helpers/arrays.helper.js'
 import db from '../db.js'
 
 export class DatabaseSeeder {
     run = async () => {
-        // await db('personal_aluno').del();
-        // await db('Personal').del();
-        // await db('Alunos').del();
-        // await db('Users').del();
         console.log('\t - Seeders')
-
         await userSeeder();
         const {
             TOTAL_USERS, ALUNO_PER_PERSONAL, TOTAL_PERSONAL,
             TOTAL_ALUNOS, alunosIds, personalIds
         } = await this.config();
-
-        // console.log({
-            // TOTAL_USERS, ALUNO_PER_PERSONAL, 
-            // TOTAL_PERSONAL, TOTAL_ALUNOS,
-            // alunosIds, personalIds
-        // });
         await personalSeeder(personalIds);
         await alunoSeeder(alunosIds);
  
@@ -36,21 +26,26 @@ export class DatabaseSeeder {
             return false;
         }
 
-        
         await exercicioSeeder();
         await muscleSeeder();
+        await treinoSeeder();
+        
+
+        await this.relationMuscleAntagonists();
+        await this.relationExerciciosMuscle();
+        await this.AlunoPersonalRelation({personalIds});
+        
         console.log('\n')
 
-        console.log('\t - Relacionando dados')
+        // console.log('\t - Relacionando dados')
 
-        await this.AlunoPersonalRelation({personalIds});
+        
 
-        // await exercicioSeeder();
         // await periodizacaoSeeder();
-        // await treinoSeeder();
+        
         
     }
-
+ 
     config = async () => {
         const users = await db('Users').select('id');
         const TOTAL_USERS = users.length;
@@ -74,7 +69,73 @@ export class DatabaseSeeder {
         }
     }
 
+    relationExerciciosMuscle = async () => {
+        const muscles = await db('Muscle');
+        const exercicios = await db('Exercicio');
+
+        for await (const exercicio of exercicios){
+            const qtdAgonsits = randomNumber({
+                range: 3,
+                min: 1
+            });
+            const qtdSynergists = randomNumber({
+                range:5,
+                min:3
+            });
+            const qtdMuscles = (qtdAgonsits * 2) + qtdSynergists;
+            const randomMuscles = muscles.randomElements({qtd : qtdMuscles});
+            const {agonists_antagonists, synergists } = randomMuscles.reduce((acc, {id, antagonist_id}, index) => {
+                if(index < qtdAgonsits){
+                    acc.agonists_antagonists.push({
+                        exercicio_id : exercicio.id,
+                        agonist_id: id,
+                        antagonist_id
+                    })
+                    return acc
+                }
+                acc.synergists.push({
+                    exercicio_id : exercicio.id, 
+                    muscle_id: id
+                })
+                return acc
+            }, {
+                agonists_antagonists : [],
+                synergists : []
+            });
+            await db('exercicio_agonists_antagonists').insert(agonists_antagonists);
+            await db('exercicio_synergists').insert(synergists);
+        }
+        console.log('\t\t - Exercicio agonistas, atangonistas e sinergistas realcionados!')
+    }
+
+    relationMuscleAntagonists = async () => {
+        const muscles = await db('muscle');
+        let qtdMuscles = muscles.length;
+        let relationArr = [];
+        
+        for (let cont = 0; cont < qtdMuscles; cont++){
+            if(cont%2 != 0){
+                relationArr.push({
+                    one : muscles[cont - 1].id,
+                    two : muscles[cont].id
+                });
+            }
+        }
+    
+        for await (const {one, two} of relationArr){
+            await db('muscle')
+                    .update('antagonist_id', two)
+                    .where('muscle.id', one)
+
+            await db('muscle')
+                    .update('antagonist_id', one)
+                    .where('muscle.id', two)
+        }
+        console.log('\t\t - Musculos antagonistas relacionados')
+    }
+
     AlunoPersonalRelation = async ({personalIds}) => {
+    
         for await (const personal_id of personalIds){
             const aluno_ids = [
                 personal_id * 2 -1, 
@@ -86,32 +147,8 @@ export class DatabaseSeeder {
                 })
             );            
         }
-        console.log('\t\t - Aluno e personal!')     
+        console.log('\t\t - Aluno e personal relacionados!')     
         return true;
-    }
-
-    exerciciosAgonistsRelation = async ({exercicios, muscles}) => {
-        console.log('\t - Criando agonistas de cada exercicio')
-        // criar dois registro na tabela de agonistas
-        for await (const exercicio of exercicios){
-
-        }
-    }
-
-    exerciciosAntagonistsRelation = async ({exercicios, muscles}) => {
-        console.log('\t - Criando agonistas de cada exercicio')
-        // criar dois registro na tabela de agonistas
-        for await (const exercicio of exercicios){
-
-        }
-    }
-
-    exerciciosSynergistsRelation = async ({exercicios, muscles}) => {
-        console.log('\t - Criando agonistas de cada exercicio')
-        // criar dois registro na tabela de agonistas
-        for await (const exercicio of exercicios){
-
-        }
     }
 }
 

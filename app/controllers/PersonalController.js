@@ -10,16 +10,16 @@ class PersonalController {
     }
 
     getPersonal = async (req, res) => {
-        const { PersonalId } = req.params;
+        const { id } = req.params;
         res.send({
-            Personal : await this.repository.one({ PersonalId })
+            Personal : await this.repository.byId({ id })
         })
     }
 
     getAlunos =  async (req, res) => {
-        const { PersonalId } = req.params;
+        const { id } = req.params;
         res.send({
-            Personal : await this.repository.alunos({ PersonalId })
+            Alunos : await this.repository.alunos({ PersonalId:id })
         })
     }
 }

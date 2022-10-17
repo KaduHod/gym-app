@@ -9,33 +9,33 @@ class ExercicioController {
         });
     }
     getExercicio = async (req, res) => {
-        const { exercicioId } = req.params;
+        const { id } = req.params;
         res.send({
-            exercicio : await this.repository.one({ exercicioId })
+            exercicio : await this.repository.byId({ exercicioId:id })
         })
     }
     agonists = async (req, res) => {
-        const { exercicioId } = req.params;
+        const { id } = req.params;
         res.send({
-            agonists : await this.repository.agonists({ exercicioId })
+            agonists : await this.repository.agonistsAntagonists({ exercicioId:id, type:'agonists' })
         })
     }
     antagonists = async (req, res) => {
-        const { exercicioId } = req.params;
+        const { id } = req.params;
         res.send({
-            antagonists : await this.repository.antagonists({ exercicioId })
+            antagonists : await this.repository.agonistsAntagonists({ exercicioId:id,type:'antagonists' })
         })
     }
     synergists = async (req, res) => {
-        const { exercicioId } = req.params;
+        const { id } = req.params;
         res.send({
-            synergists : await this.repository.synergists({ exercicioId })
+            synergists : await this.repository.synergists({ exercicioId:id })
         })
     }
     muscles = async (req, res) => {
-        const { exercicioId } = req.params;
+        const { id } = req.params;
         res.send({
-            muscles : await this.repository.muscles({ exercicioId })
+            muscles : await this.repository.muscles({ exercicioId:id })
         })
     }
 }

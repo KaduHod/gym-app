@@ -5,10 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app/server.js",
     "migrate:refresh" : "node app/database/seeders/refresh.seeder.js",
-    "migrate:test" : "node app/database/seeders/test.seeder.js"
+    "migrate:test" : "node app/database/seeders/test.seeder.js",
+    "test" : "node app/database/seeders/treino.seeder.js"
   },
   "author": "",
   "license": "ISC",

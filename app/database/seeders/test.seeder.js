@@ -1,11 +1,11 @@
 import db from '../db.js';
 import { randomNumber } from '../../helpers/numbers.helper.js';
-import * as arrays from '../../helpers/arrays.helper.js'
+
 
 
 const relationExerciciosMuscle = async ({exercicios, muscles}) => {
     for await (const exercicio of exercicios){
-        const qtdAgonsitsEAntagonists = randomNumber({
+        const qtdAgonsits = randomNumber({
             range: 3,
             min: 1
         });
@@ -13,51 +13,39 @@ const relationExerciciosMuscle = async ({exercicios, muscles}) => {
             range:5,
             min:3
         });
-        // console.log({
-            // qtdAgonsitsEAntagonists, qtdSynergists
-        // })
-        const qtdMuscles = (qtdAgonsitsEAntagonists * 2) + qtdSynergists;
+        const qtdMuscles = (qtdAgonsits * 2) + qtdSynergists;
         const randomMuscles = muscles.randomElements({qtd : qtdMuscles});
-
-        const {agonists, antagonists, synergists } = randomMuscles.reduce((acc, {id}, index) => {
-            if(index < qtdAgonsitsEAntagonists){
-                acc.agonists.push({
-                    exercicio_id:id,
-                    muscle_id:exercicio.id
-                })
-                return acc
-            }
-            if(index < qtdAgonsitsEAntagonists * 2){
-                acc.antagonists.push({
-                    exercicio_id:id, 
-                    muscle_id:exercicio.id
+        const {agonists_antagonists, synergists } = randomMuscles.reduce((acc, {id, antagonist_id}, index) => {
+            if(index < qtdAgonsits){
+                acc.agonists_antagonists.push({
+                    exercicio_id : exercicio.id,
+                    agonist_id: id,
+                    antagonist_id
                 })
                 return acc
             }
             acc.synergists.push({
-                exercicio_id:id, 
-                muscle_id:exercicio.id
+                exercicio_id : exercicio.id, 
+                muscle_id: id
             })
             return acc
         }, {
-            agonists : [],
-            antagonists : [],
+            agonists_antagonists : [],
             synergists : []
         });
-
-        await db('exercicio_agonists').insert(agonists);
-        await db('exercicio_antagonists').insert(antagonists);
+        await db('exercicio_agonists_antagonists').insert(agonists_antagonists);
         await db('exercicio_synergists').insert(synergists);
     }
-    
-    console.log('Relações criadas')
 }
 
 export const test = async () => {
-    const muscles = await db('Muscle');
-    const exercicios = await db('Exercicio');
     
-    relationExerciciosMuscle({exercicios, muscles});
+    
+    await relationExerciciosMuscle({exercicios, muscles});
+    // muscles.forEach(msucle => {
+        // console.log({msucle})
+    // });
+
 }
 
 test();
