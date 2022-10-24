@@ -1,39 +1,16 @@
-import { Personal } from "./Personal.model"
-import { Aluno } from "./Aluno.model";
-import { users, alunos } from "../Repositories/data";
-function main(){
+import { test, expect } from 'vitest'
+import { Personal, PersonalInterface } from './Personal.model';
+import { User } from './User.model';
 
-    const propsPersonal = {
+test('create one Personal', () => {
+    const personal = new Personal({
         id:1,
         user_id:1
-    };
+    })
+    expect(personal).toBeInstanceOf(Personal)
+})
 
-    const [aluno, aluno2] = alunos
-
+test('should be linked with user', async () => {
     
-//   
-    const personal = new Personal(propsPersonal);
+})
 
-    aluno.setPersonal(personal.id())
-    aluno2.setPersonal(personal.id())
-
-
-    console.log(personal.alunos())
-   
-    // const aluno = new Aluno({
-        // id:2,
-        // user_id:2,
-        // personal_id:null
-    // });
-    // const aluno2 = new Aluno({
-        // id:3,
-        // user_id:3,
-        // personal_id:null
-    // });
-// 
-    // aluno.setPersonal(1);
-    // aluno2.setPersonal(2);
-
-}
-
-main()

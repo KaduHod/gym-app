@@ -4,10 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": " nodemon  index.ts",
-    "test:user": "nodemon ./app/Models/User.model.test.ts",
-    "test:personal": "nodemon ./app/Models/Personal.model.test.ts",
-    "test:aluno": "nodemon ./app/Models/Aluno.model.test.ts"
+    "start": " nodemon index.ts",
+    "migrate:seed": "npx ts-node ./app/database/seeders/main.seeder.ts",
+    "migrate:unseed": "npx ts-node ./app/database/seeders/main.unseed.ts",
+    "migrate:refresh": "npx ts-node ./app/database/seeders/refresh.seeder.ts",
+    "migrate:test" : "npx ts-node ./app/database/seeders/teste.ts",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +26,8 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
-    "nodemon": "^2.0.20"
+    "@vitest/coverage-c8": "^0.24.3",
+    "nodemon": "^2.0.20",
+    "vitest": "^0.24.3"
   }
 }

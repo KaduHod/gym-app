@@ -1,6 +1,6 @@
 import { UserInterface, User } from "./User.model"
 import { Aluno } from "./Aluno.model"
-import { Database }  from "../database/db";
+import Database   from "../database/connection";
 
 export interface PersonalInterface {
     id:Number
@@ -8,30 +8,32 @@ export interface PersonalInterface {
 }
 
 export class Personal {
-    private props:PersonalInterface;
     private repository: typeof Database
+    public id:Number | null
+    private user_id:Number | null
     
-    constructor(props : PersonalInterface)
+    constructor(personal : PersonalInterface)
     {
-        this.props = props
+        this.id = personal.id ?? null
+        this.user_id = personal.user_id ?? null
         this.repository = Database;
     }
 
-    public id(): Number {
-        return this.props.id;
+    // public id(): Number {
+        // return this.id;
+    // }
+
+    private user(): User | any
+    {
+        return this.user_id;
     }
 
-    private userId(): Number {
-        
-        return this.props.user_id;
-    }
-
-    public user():User | null 
-    {
-        return this.repository.getUserById(this.userId());
-    }
-    public alunos(): Aluno | any
-    {
-        return this.repository.getAlunosFromPersonal(this.id())
-    }
+    // public user():User | null 
+    // {
+        // return this.repository.getUserById(this.userId());
+    // }
+    // public alunos(): Aluno | any
+    // {
+        // return this.repository.getAlunosFromPersonal(this.id())
+    // }
 }

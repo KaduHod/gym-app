@@ -1,4 +1,4 @@
-import { Database } from "../database/db";
+import { Database } from "../database/connection";
 import { User } from "./User.model"
 
 export interface AlunoInterface {
@@ -27,10 +27,10 @@ export class Aluno {
         return this.props.user_id;
     }
 
-    public user(): User | null
-    {
-        return this.repository.getUserById(this.user_id())
-    }
+    // public user(): User | null
+    // {
+        // return this.repository.getUserById(this.user_id())
+    // }
 
     public setPersonal(personal_id:Number): void
     {

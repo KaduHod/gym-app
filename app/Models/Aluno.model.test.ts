@@ -1,13 +1,32 @@
-import { Aluno } from "./Aluno.model"
-import { users } from "../Repositories/data";
-function main(){
-    const alunoPersonal = {
+import { test, expect } from 'vitest'
+import { Aluno, AlunoInterface } from "./Aluno.model"
+import { User } from './User.model';
+
+test('create one Aluno', () => {
+    const aluno = new Aluno({
         id:2,
         user_id:2,
         personal_id:null
-    };
-    const aluno = new Aluno(alunoPersonal);
-    console.log(aluno.user())
-}
+    });
+    
+    expect(aluno).toBeInstanceOf(Aluno)
+})
 
-main()
+// test('aluno should have a user linked with it', () => {
+    // const newUser = new User({
+        // name: 'Carlos',
+        // nickname: 'kaduhod',
+        // email: 'Carlos@mail.com',
+        // password: '123456',
+        // cellphone: '41 99985-6247',
+        // createdAt: new Date(),
+        // updatedAt: new Date()
+    // });
+// 
+    // const aluno = new Aluno({
+        // id:2,
+        // user_id:2,
+        // personal_id:null
+    // })
+// })
+

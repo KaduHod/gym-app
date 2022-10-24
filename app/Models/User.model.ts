@@ -1,22 +1,34 @@
+import { UserRepository } from "../Repositories/User.repository"
+
 export interface UserInterface {
-    id:Number
     name:String
     nickname:String
     email:String
     cellphone:String
     password:String
-    createdAt:Date
-    updatedAt:Date
 };
 
 export class User {
-    private props:UserInterface;
-
-    constructor(user:UserInterface){
-        this.props = user;
-    }
-
-    public id(): Number {
-        return this.props.id;
+    public id:Number | null;
+    public name:String;
+    public nickname:String;
+    public email:String;
+    public cellphone:String;
+    private password:String;
+    private repository:UserRepository;
+    public createdAt:Date | null;
+    public updatedAt:Date | null;
+    
+    
+    constructor(user:any){
+        this.id = user.id ?? null;
+        this.name = user.name;
+        this.nickname = user.nickname;
+        this.email = user.email;
+        this.cellphone = user.cellphone;
+        this.password = user.password;
+        this.createdAt = user.created_at ?? null;
+        this.updatedAt = user.updated_at ?? null;
+        this.repository = new UserRepository;
     }
 }
