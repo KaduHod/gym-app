@@ -1,11 +1,14 @@
 import { UserFactory } from '../factory/User.factory';
+import { User } from '../../Models/User.model';
 import { UserRepository } from '../../Repositories/User.repository';
-export async function personalSeeder(): Promise<Number>
+import { PersonalRepository } from '../../Repositories/Personal.repository';
+export async function personalSeeder(): Promise<any>
 {
     const userRepository = new UserRepository();
-    let totalUsers = await userRepository.getTotalUsers();
-    let numUsersToCreate = totalUsers / 3;
+    const personalRepo = new PersonalRepository();
     let users = await userRepository.allUsers();
-    let personals = users.slice(0,numUsersToCreate - 1)
-    return personals;
+    let totalUsers = users.length;
+    let numUsersToCreate = totalUsers / 3;
+    let personals = users.slice(0,numUsersToCreate)
+    await personalRepo.create(personals.map( ( {id}:User ) => ({user_id:id}) ));
 }

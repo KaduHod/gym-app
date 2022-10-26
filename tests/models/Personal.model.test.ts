@@ -1,6 +1,6 @@
 import { test, expect } from 'vitest'
-import { Personal, PersonalInterface } from './Personal.model';
-import { User } from './User.model';
+import { Personal, PersonalInterface } from '../../app/Models/Personal.model';
+import { User } from '../../app/Models/User.model';
 
 test('create one Personal', () => {
     const personal = new Personal({

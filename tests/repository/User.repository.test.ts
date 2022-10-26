@@ -1,7 +1,7 @@
 import { test, expect } from 'vitest'
-import { Aluno } from '../Models/Aluno.model';
-import { UserRepository } from './User.repository'
-import {User, UserInterface} from '../Models/User.model'
+import { Aluno } from '../../app/Models/Aluno.model';
+import { UserRepository } from '../../app/Repositories/User.repository'
+import {User, UserInterface} from '../../app/Models/User.model'
 
 test('create UserRepository', () => {
     const userRepository = new UserRepository();
@@ -57,7 +57,7 @@ test('should return user by id', async () => {
 })
 
 test('throw error if not find user by id', async () => {
-    const id = 999;
+    const id = 340923048999;
     const userRepo = new UserRepository();
     const user = await userRepo.getUserById(id);
     expect(user).toEqual(false);

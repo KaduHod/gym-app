@@ -6,4 +6,10 @@ export class AbstracRepository {
     constructor(){
         this.db = connection;
     }
+
+    public async getByid(): Promise<void>
+    {
+
+    }
+
 }

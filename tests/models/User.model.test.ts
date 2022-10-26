@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest'
-import { User, UserInterface } from "./User.model";
+import { User, UserInterface } from "../../app/Models/User.model";
 
 test('create an user', () =>{
     const newUser = new User({

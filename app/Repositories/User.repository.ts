@@ -1,8 +1,6 @@
 import { User, UserInterface } from "../Models/User.model";
 import { AbstracRepository } from "./abstract.repository";
 export class UserRepository extends AbstracRepository{
-    // private table:String
-
     constructor(){
         super()
     }
@@ -21,7 +19,7 @@ export class UserRepository extends AbstracRepository{
                         .insert(values)
     }
 
-    public async getUserById(id:Number): Promise<User |  boolean>
+    public async getUserById(id:Number): Promise<User | boolean>
     {
         const user:UserInterface | any = await this
                                                     .db('users')

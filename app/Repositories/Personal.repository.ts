@@ -12,4 +12,11 @@ export class PersonalRepository extends AbstracRepository {
                         .db('personais')
                         .insert(values)
     }
+
+    public async getTotalPersonais(): Promise<Number | String>
+    {
+        const query = await this.db('personais').count('id as total')
+        return query[0].total;
+    };
+    
 }

@@ -1,6 +1,6 @@
 import { test, expect } from 'vitest'
-import { Aluno, AlunoInterface } from "./Aluno.model"
-import { User } from './User.model';
+import { Aluno, AlunoInterface } from "../../app/Models/Aluno.model"
+import { User } from '../../app/Models/User.model';
 
 test('create one Aluno', () => {
     const aluno = new Aluno({
