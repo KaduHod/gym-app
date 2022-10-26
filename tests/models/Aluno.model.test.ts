@@ -1,10 +1,12 @@
 import { test, expect } from 'vitest'
 import { Aluno, AlunoInterface } from "../../app/Models/Aluno.model"
 import { User } from '../../app/Models/User.model';
+import path from 'path'
+console.log(path.basename(__filename))
 
 test('create one Aluno', () => {
     const aluno = new Aluno({
-        id:2,
+        id:null,
         user_id:2,
         personal_id:null
     });

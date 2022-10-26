@@ -1,44 +1,20 @@
-import { Database } from "../database/connection";
 import { User } from "./User.model"
-
+import { AlunoRepository } from "../Repositories/Aluno.repository";
 export interface AlunoInterface {
-    id:Number
+    id: Number | null
     user_id:Number
     personal_id:Number | null
 }
 
 export class Aluno {
-    private props:AlunoInterface;
-    private repository: typeof Database
+    private id:Number | null
+    private user_id:Number
+    private alunoRepository:AlunoRepository
     
     constructor(props : AlunoInterface)
     {
-        this.props = props
-        this.repository = Database;
-    }
-
-    public id(): Number
-    {
-        return this.props.id;
-    }
-
-    public user_id(): Number
-    {
-        return this.props.user_id;
-    }
-
-    // public user(): User | null
-    // {
-        // return this.repository.getUserById(this.user_id())
-    // }
-
-    public setPersonal(personal_id:Number): void
-    {
-        this.props.personal_id = personal_id;
-    }
-
-    public personalId(): Number | null
-    {
-        return this.props.personal_id;
+        this.id = props.id
+        this.user_id = props.user_id
+        this.alunoRepository = new AlunoRepository();
     }
 }

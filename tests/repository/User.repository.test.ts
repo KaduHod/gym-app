@@ -2,6 +2,8 @@ import { test, expect } from 'vitest'
 import { Aluno } from '../../app/Models/Aluno.model';
 import { UserRepository } from '../../app/Repositories/User.repository'
 import {User, UserInterface} from '../../app/Models/User.model'
+import path from 'path'
+console.log(path.basename(__filename))
 
 test('create UserRepository', () => {
     const userRepository = new UserRepository();
@@ -56,8 +58,8 @@ test('should return user by id', async () => {
     expect(user).toBeInstanceOf(User);
 })
 
-test('throw error if not find user by id', async () => {
-    const id = 340923048999;
+test('return a false when the search does not return any data', async () => {
+    const id = 9999999999999999999;
     const userRepo = new UserRepository();
     const user = await userRepo.getUserById(id);
     expect(user).toEqual(false);

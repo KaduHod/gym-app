@@ -15,6 +15,7 @@ export const createTables = async () => {
                     table.timestamp('created_at').defaultTo(db.fn.now());
                     table.timestamp('updated_at').defaultTo(db.fn.now());
                 })
+                
             });
     
     await db.schema
@@ -43,12 +44,7 @@ export const createTables = async () => {
                     table.timestamp('updated_at').defaultTo(db.fn.now());
                 })
             });
-    
-
-    
-    
-
-
+    return;
 }
 
 export const dropTables = async () => {
@@ -67,6 +63,6 @@ export const dropTables = async () => {
         console.log('\t\t - Deletando tabela user');
         await db.schema.dropTable('users');
     })
-    
+    return;
     
 }

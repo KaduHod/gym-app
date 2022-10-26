@@ -9,5 +9,6 @@ export async function userSeeder(): Promise<void>
         numUsersToCreate--;
     }
     const userRepository = new UserRepository();
+    // await userRepository.db('users').delete();
     await userRepository.create(users);
 }

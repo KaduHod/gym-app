@@ -5,14 +5,15 @@ import { test, expect } from 'vitest';
 import { personalSeeder } from '../../../app/database/seeders/Personal.seeder';
 import { dbFresh } from '../../../app/database/seeders/fresh.seeder';
 import { userSeeder } from '../../../app/database/seeders/User.seeder';
+import { AlunoRepository } from '../../../app/Repositories/Aluno.repository';
+import { alunoSeeder } from '../../../app/database/seeders/Aluno.seeder';
 
-test('Should seed personal with 3 times less alunos', async () => {
-    const userRepo = new UserRepository();
+test('Should seed alunos with the double of personais', async () => {
     const personalRepo = new PersonalRepository();
-    await personalRepo.deleteAllPersonais();
-    const totalUsers = await userRepo.getTotalUsers();
-    await personalSeeder();
+    const alunoRepo = new AlunoRepository();
     const totalPersonais = await personalRepo.getTotalPersonais();
-    const expectedNumberOfPersonals = Math.floor(totalUsers/3);
-    expect(totalPersonais).to.be.equal(expectedNumberOfPersonals)
+    const expectedNumberOfAlunos = totalPersonais*2;
+    await alunoSeeder();
+    const totalAlunos = await alunoRepo.getTotal();
+    expect(totalAlunos).to.be.equal(expectedNumberOfAlunos)
 })

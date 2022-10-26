@@ -11,7 +11,8 @@
     "migrate:test" : "npx ts-node ./app/database/seeders/teste.ts",
     "personal-seeder:test" : "npx ts-node ./app/database/seeders/personal.seeder.ts",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "refresh-and-test" : "npm run migrate:refresh & vitest"
   },
   "author": "",
   "license": "ISC",

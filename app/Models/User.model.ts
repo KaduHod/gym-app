@@ -15,12 +15,13 @@ export class User {
     public email:String;
     public cellphone:String;
     private password:String;
-    private repository:UserRepository;
+    private userRepository:UserRepository;
     public createdAt:Date | null;
     public updatedAt:Date | null;
     
     
     constructor(user:any){
+        console.log(user.id)
         this.id = user.id ?? null;
         this.name = user.name;
         this.nickname = user.nickname;
@@ -29,6 +30,6 @@ export class User {
         this.password = user.password;
         this.createdAt = user.created_at ?? null;
         this.updatedAt = user.updated_at ?? null;
-        this.repository = new UserRepository;
+        this.userRepository = new UserRepository();
     }
 }
