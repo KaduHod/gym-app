@@ -18,7 +18,7 @@ export class Aluno {
         this.user_id = props.user_id
         this.alunoRepository = new AlunoRepository();
     }
-    public async user():Promise<User>
+    public async user(): Promise<User>
     {
         return await this.alunoRepository.getUser(this);
     }
@@ -30,10 +30,20 @@ export class Aluno {
                         .attachAlunoToPersonal({aluno:this, personal});
     }
 
-    public async getPersonal()
+    public async personal(): Promise<Personal | boolean>
     {
         return await this   
                         .alunoRepository
                         .getPersonalFromAluno(this);
+    }
+
+    public async removePersonal(personal:Personal): Promise<boolean>
+    {
+        console.log({
+            aqui:personal
+        })
+        return await this
+                        .alunoRepository
+                        .dettachAlunoFromPersonal({aluno:this, personal});
     }
 }

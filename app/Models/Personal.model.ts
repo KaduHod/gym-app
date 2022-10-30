@@ -25,7 +25,7 @@ export class Personal {
         return verify
     }
 
-    public async removeAluno(aluno:Aluno): Promise<any>
+    public async removeAluno(aluno:Aluno): Promise<boolean>
     {
         const verify = await this
                                 .repository
@@ -34,10 +34,10 @@ export class Personal {
         return verify
     }
 
-    public async alunos(): Promise<any>
+    public async alunos(): Promise<Aluno[]>
     {
         return await this.repository.getAlunosFromPersonal( this )
     }
 
-    
+
 }

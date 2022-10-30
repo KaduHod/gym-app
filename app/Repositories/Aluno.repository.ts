@@ -2,7 +2,7 @@ import { AbstracRepository } from "./abstract.repository";
 import { User, UserInterface } from "../Models/User.model";
 import { AlunoInterface, Aluno } from "../Models/Aluno.model";
 import { Personal } from "../Models/Personal.model";
-import { attachPersonalToAlunoInterface } from "../interfaces";
+import { alunoPersonalInterface } from "../interfaces";
 
 export class AlunoRepository extends AbstracRepository
 {
@@ -38,7 +38,7 @@ export class AlunoRepository extends AbstracRepository
                         .first();
     }
 
-    public async attachAlunoToPersonal({aluno, personal}:attachPersonalToAlunoInterface): Promise<boolean>
+    public async attachAlunoToPersonal({aluno, personal}:alunoPersonalInterface): Promise<boolean>
     {
         try {
             const alreadyAttach = await this.db('personal_aluno')
@@ -61,6 +61,21 @@ export class AlunoRepository extends AbstracRepository
         }
     }
 
+    public async dettachAlunoFromPersonal({aluno, personal}:alunoPersonalInterface): Promise<boolean>
+    {
+        try {
+            return await this.db('personal_aluno')
+                    .where({
+                        aluno_id : aluno.id,
+                        personal_id: personal.id
+                    })
+                    .delete();
+        } catch (error) {
+            console.log({error});
+            return false;
+        }
+    }
+
     public async getPersonalFromAluno(aluno:Aluno) : Promise<Personal | boolean>
     {
         try {
@@ -71,6 +86,7 @@ export class AlunoRepository extends AbstracRepository
                                         .where({
                                             'personal_aluno.aluno_id' : aluno.id
                                         }).first(); 
+            if(!personal) return false;
             return new Personal(personal);
         } catch (error) {
             console.log({error})

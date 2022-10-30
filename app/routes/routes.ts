@@ -1,11 +1,8 @@
 import express, { Router, Request, Response } from 'express';
+import AdministradorController from '../Controllers/Administrador.controller';
 
 const Routes:Router = express.Router();
 
-Routes.get('/', (request:Request, response:Response):Response => {
-    return response.send({message:'helloworld'})
-})
-
-
+Routes.get('/', AdministradorController.index);
 
 export default Routes;

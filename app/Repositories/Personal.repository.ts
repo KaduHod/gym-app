@@ -1,6 +1,6 @@
 import { AbstracRepository } from "./abstract.repository";
 import { PersonalInterface, Personal } from "../Models/Personal.model";
-import { attachPersonalToAlunoInterface } from "../interfaces";
+import { alunoPersonalInterface } from "../interfaces";
 import { Aluno } from "../Models/Aluno.model";
 
 
@@ -31,7 +31,7 @@ export class PersonalRepository extends AbstracRepository {
         return new Personal( await this.db('personais').first() );
     }
 
-    public async attachPersonalToAluno({personal, aluno}:attachPersonalToAlunoInterface) : Promise<boolean>
+    public async attachPersonalToAluno({personal, aluno}:alunoPersonalInterface) : Promise<boolean>
     {
         try {
             const verifyIfIsAlreadyAttach = await this.db('personal_aluno')
@@ -54,7 +54,7 @@ export class PersonalRepository extends AbstracRepository {
         }
     }
 
-    public async dettachPersonalToAluno({personal, aluno}:attachPersonalToAlunoInterface) : Promise<any>
+    public async dettachPersonalToAluno({personal, aluno}:alunoPersonalInterface) : Promise<any>
     {
         try {
             return await this.db('personal_aluno')

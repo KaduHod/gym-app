@@ -14,32 +14,22 @@ test('create one Aluno', () => {
     expect(aluno).toBeInstanceOf(Aluno)
 })
 
-
 test('Should be able to link with persnoal', async () => {
     const alunoRepository = new AlunoRepository();
     const aluno = await alunoRepository.first();
     const personalRepository = new PersonalRepository();
     let personal = await personalRepository.first();
     await aluno.addPersonal(personal);
-    personal = await aluno.getPersonal();
+    personal = await aluno.personal();
     expect(personal).toBeInstanceOf(Personal);
 });
 
-// test('aluno should have a user linked with it', () => {
-    // const newUser = new User({
-        // name: 'Carlos',
-        // nickname: 'kaduhod',
-        // email: 'Carlos@mail.com',
-        // password: '123456',
-        // cellphone: '41 99985-6247',
-        // createdAt: new Date(),
-        // updatedAt: new Date()
-    // });
-// 
-    // const aluno = new Aluno({
-        // id:2,
-        // user_id:2,
-        // personal_id:null
-    // })
-// })
+test('Should unlink aluno from personal', async () => {
+    const alunoRepository = new AlunoRepository();
+    const aluno = await alunoRepository.first();
+    let personal = await aluno.personal();
+    await aluno.removePersonal(personal);
+    personal = await aluno.personal();
+    expect(personal).toBeFalsy();
+})
 

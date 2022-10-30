@@ -2,8 +2,6 @@ import { test, expect } from 'vitest'
 import { Aluno } from '../../app/Models/Aluno.model';
 import { User, UserInterface } from "../../app/Models/User.model";
 
-
-
 test('create an user', () =>{
     const newUser = new User({
         id:null,
