@@ -44,10 +44,30 @@ export const createTables = async () => {
                     table.timestamp('updated_at').defaultTo(db.fn.now());
                 })
             });
+    await db.schema
+            .hasTable('personal_aluno')
+            .then(async exists => {
+                if(exists) return;
+                console.log('\t\t - Criando tabela de personal_aluno')
+                await db.schema.createTable('personal_aluno', table => {
+                    table.increments();
+                    table.integer('personal_id').unsigned()
+                    table.foreign('personal_id').references('personais.id');
+                    table.integer('aluno_id').unsigned()
+                    table.foreign('aluno_id').references('alunos.id');
+                    table.timestamp('created_at').defaultTo(db.fn.now());
+                    table.timestamp('updated_at').defaultTo(db.fn.now());
+                })
+            });
     return;
 }
 
 export const dropTables = async () => {
+    await db.schema.hasTable('personal_aluno').then(async exists => {
+        if(!exists) return;
+        console.log('\t\t - Deletando tabela personal_aluno');
+        await db.schema.dropTable('personal_aluno');
+    })
     await db.schema.hasTable('personais').then(async exists => {
         if(!exists) return;
         console.log('\t\t - Deletando tabela personais');

@@ -8,9 +8,9 @@ export interface PersonalInterface {
 }
 
 export class Personal {
-    private repository:PersonalRepository
-    private user_id:Number | null
-    private id:Number | null
+    public repository:PersonalRepository
+    public user_id:Number | null
+    public id:Number | null
     
     constructor(personal : PersonalInterface)
     {
@@ -18,4 +18,26 @@ export class Personal {
         this.user_id = personal.user_id ?? null
         this.repository = new PersonalRepository();
     }
+
+    public async addAluno(aluno:Aluno): Promise<boolean>
+    {
+        const verify = await this.repository.attachPersonalToAluno({personal:this, aluno: aluno});
+        return verify
+    }
+
+    public async removeAluno(aluno:Aluno): Promise<any>
+    {
+        const verify = await this
+                                .repository
+                                .dettachPersonalToAluno({personal:this, aluno: aluno});
+                                
+        return verify
+    }
+
+    public async alunos(): Promise<any>
+    {
+        return await this.repository.getAlunosFromPersonal( this )
+    }
+
+    
 }

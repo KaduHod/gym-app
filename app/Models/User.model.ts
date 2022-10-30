@@ -21,7 +21,6 @@ export class User {
     
     
     constructor(user:any){
-        console.log(user.id)
         this.id = user.id ?? null;
         this.name = user.name;
         this.nickname = user.nickname;

@@ -1,5 +1,7 @@
 import { test, expect } from 'vitest'
+import { Aluno } from '../../app/Models/Aluno.model';
 import { User, UserInterface } from "../../app/Models/User.model";
+
 
 
 test('create an user', () =>{
@@ -13,3 +15,5 @@ test('create an user', () =>{
     });
     expect(newUser).toBeInstanceOf(User);
 });
+
+
