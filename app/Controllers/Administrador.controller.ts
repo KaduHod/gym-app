@@ -5,9 +5,9 @@ class AdministradorController{
 
     }
 
-    public async index(req: Request, res: Response)
+    public async index(req: Request, res: Response): Promise<void>
     {
-        res.send({message:'Hello world'});
+       return res.render('home')
     }
 }
 

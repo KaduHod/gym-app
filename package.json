@@ -8,11 +8,10 @@
     "migrate:seed": "npx ts-node ./app/database/seeders/main.seeder.ts",
     "migrate:unseed": "npx ts-node ./app/database/seeders/main.unseed.ts",
     "migrate:refresh": "npx ts-node ./app/database/seeders/refresh.seeder.ts",
-    "migrate:test" : "npx ts-node ./app/database/seeders/teste.ts",
-    "personal-seeder:test" : "npx ts-node ./app/database/seeders/personal.seeder.ts",
+    "migrate:test": "npx ts-node ./app/database/seeders/teste.ts",
+    "personal-seeder:test": "npx ts-node ./app/database/seeders/personal.seeder.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage"
-    
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +20,7 @@
     "@types/node": "^18.11.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
     "knex": "^2.3.0",
     "mysql2": "^2.3.3",
     "ts-node": "^10.9.1",
@@ -30,6 +30,7 @@
     "@faker-js/faker": "^7.6.0",
     "@vitest/coverage-c8": "^0.24.3",
     "nodemon": "^2.0.20",
+    "tailwindcss": "^3.2.1",
     "vitest": "^0.24.3"
   }
 }
