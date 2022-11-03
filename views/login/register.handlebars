@@ -1,0 +1,41 @@
+<div class="main-container" id="login-container">
+    <form class="card login-card p-4" id="form-register">
+        <div class="row my-2">
+            <label for="name">Nome</label>
+            <input type="text" name="name" class="form-control">
+        </div>
+        <div class="row my-2">
+            <label for="nickname">Nick name</label>
+            <input type="text" name="nickname" class="form-control">
+        </div>
+        <div class="row my-2">
+            <label for="email">Email</label>
+            <input type="email" name="email" class="form-control">
+        </div>
+        <div class="row my-2">
+            <label for="cellphone">Celular</label>
+            <input type="text" name="cellphone" class="form-control">
+        </div>
+        <div class="row my-2">
+            <label for="password">Senha</label>
+            <input type="password" name="password" class="form-control">
+        </div>
+        <div class="row my-2">
+            <button class="btn btn-danger col" id="registrar">Registrar</button>
+             <a class="btn btn-dark col" href="http://localhost:5555/login">Voltar</a>
+        </div>
+        <div id="register-errors">
+
+        </div>
+    </form>
+</div>
+<script src="js/formulario.js"></script>
+<script src="js/register.js"></script>
+<script src="js/register.formulario.js"></script>
+<script>
+    const formulario = new RegisterFormulario({
+        id:'form-register', 
+        route:'http://localhost:5555/register',
+        idErrorsContainer: 'register-errors'
+    })
+</script>

@@ -8,8 +8,8 @@ export const createTables = async () => {
                 await db.schema.createTable('users', table => {
                     table.increments();
                     table.string('name', 55);
-                    table.string('nickname', 30);
-                    table.string('email', 100);
+                    table.string('nickname', 30).unique();
+                    table.string('email', 100).unique();
                     table.string('password', 255);
                     table.string('cellphone', 20);
                     table.timestamp('created_at').defaultTo(db.fn.now());

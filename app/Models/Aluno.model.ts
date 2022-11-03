@@ -39,9 +39,6 @@ export class Aluno {
 
     public async removePersonal(personal:Personal): Promise<boolean>
     {
-        console.log({
-            aqui:personal
-        })
         return await this
                         .alunoRepository
                         .dettachAlunoFromPersonal({aluno:this, personal});

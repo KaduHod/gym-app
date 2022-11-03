@@ -14,4 +14,21 @@ test('create an user', () =>{
     expect(newUser).toBeInstanceOf(User);
 });
 
+test('should save a user into database', async () => {
+    const newUser = new User({
+        name: 'Carlos',
+        nickname: 'kaduhod',
+        email: 'Carlos@mail.com',
+        password: '123456',
+        cellphone: '41 99985-6247',
+    });
+
+    await newUser.save();
+
+
+
+    console.log(newUser)
+
+})
+
 

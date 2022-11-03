@@ -1,5 +1,5 @@
 import { User, UserInterface } from "../Models/User.model";
-import { AbstracRepository } from "./abstract.repository";
+import { AbstracRepository } from "./Abstract.repository";
 export class UserRepository extends AbstracRepository{
     constructor(){
         super()
@@ -40,5 +40,15 @@ export class UserRepository extends AbstracRepository{
     {
         const query = await this.db.raw('Select count(*) from users');
         return query[0][0]['count(*)'];
+    }
+
+    public async builder({where, first = false}:any)
+    {
+        if(first) return await this.db('users')
+                                    .where(where)
+                                    .first();
+                                    
+        return await this.db('users')
+                            .where(where);
     }
 }
